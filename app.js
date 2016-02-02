@@ -6,9 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var user = require('./routes/user');
 var test = require('./routes/test');
 var admin = require('./routes/admin/index');
+var post  = require("./routes/post");
 
 var app = express();
 
@@ -24,9 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/user', user);
 app.use('/test', test);
 app.use('/admin', admin);
+app.use("/post", post);
 
 //this line should below the 'public' static, since the public file would disrupt
 //the route.

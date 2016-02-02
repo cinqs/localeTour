@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div.container
+    h1 Locale Tour
+    if status != 200
+      p= msg
+    else
+      each val, index in post
+        div.col-md-3
+          h4= val.nickname
+          h5= val.city
+          h5= val.contact
+          a(href='/post/' + val._id) More

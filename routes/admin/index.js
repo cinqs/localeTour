@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 *@param [String] (contact)
 *@return [redirected]
 */
-router.post('/save', function(req, res){
+router.post('/', function(req, res){
   var nickname = req.body.nickname || null;
   var city     = req.body.city || null;
   var contact  = req.body.contact || null;
@@ -32,38 +32,19 @@ router.post('/save', function(req, res){
     "contact" : contact
   }
 
-  console.log(chalk.green(data));
-
-  var response = {
+  var result = {
     "date": new Date(),
   }
 
-  if (nickname || city || contact) {
-    response.code = 200;
-    response.msg  = "Some param(s) is / are missing";
-    res.status(200).json(response);
+  if (!nickname || !city || !contact) {
+    result.code = 422;
+    result.msg  = "Some param(s) is / are missing";
+    res.status(200).json(result);
   }else{
-    var promise = new Promise(function(resolve, reject){
-      var trial = 0;
-      model.post.savePost(data, function(result){
-        if (result.status == 200) {
-          resolve({
-            "status": 200,
-            "msg"   : result.msg
-          })
-        }else{
-          reject({
-            "status": 504,
-            "msg"   : result.msg
-          })
-        }
-      });
+    model.post.savePost(data, function(result){
+      result.date = new Date();
+      res.status(200).json(result);
     })
-
-    promise
-      .then(function(result){
-        res.status(result.status).json(result);
-      })
   }
 })
 

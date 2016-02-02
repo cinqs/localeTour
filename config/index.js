@@ -1,4 +1,4 @@
-var dburl = "mongodb://localhost/test";
+var dburl = "mongodb://localhost/localtour";
 
 module.exports = {
   "dburl": dburl,
