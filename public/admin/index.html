@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Locale Tour</title>
+    <meta charset="utf-8"/>
+    <meta content="the content insert place"/>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet" >
+    <link href="admin/stylesheets/style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Plz fill the form below</h1>
+      </header>
+      <form action="/admin/save" method="post" class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Nick Name</label>
+          <div class="col-sm-9">
+            <input class="form-control" name="nickname" type="text" placeholder="input the name you want to show in public">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">City</label>
+          <div class="col-sm-9">
+            <input name="city" type="text" placeholder="input the city you are living in" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Contact</label>
+          <div class="col-sm-9">
+            <input name="contact" type="text" placeholder="input the contact method how you want to be contacted" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-3"></label>
+          <div class="col-sm-9">
+            <input type="submit" class="btn btn-default">
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

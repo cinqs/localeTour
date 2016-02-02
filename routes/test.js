@@ -1,21 +1,40 @@
-var express = require('express')
-var router = express.Router()
+var express = require('express');
+var router = express.Router();
+var chalk = require("chalk");
 
 router.get('/', function(req, res){
-  var number = req.query.number
 
-  console.log(number)
-  if (number >= 10) {
-    res.status(404).json({
-      'status':'error',
-      'error':'too big'
+  var promise = new Promise(function(resolve, reject){
+    limit = 0
+    var exam = function(){
+      if(Math.random() < 0.5){
+        resolve("pass");
+      }else{
+        limit += 1;
+        if (limit < 2) {
+          console.log(chalk.red("failed"));
+          exam();
+        }else{
+          reject("failed anyway");
+        }
+      }
+    }
+    exam();
+  });
+
+  promise
+    .then(function(result){
+      console.log(chalk.green(result));
+      return result;
+    }, function(result){
+      console.log(chalk.red(result));
+      return result;
     })
-  }else{
-    res.status(200).json({
-      'status':'ok',
-      'error': null
+    .then(function(result){
+      res.status(200).json({
+        "result":result
+      });
     })
-  }
 })
 
 module.exports = router

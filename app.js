@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var test = require('./routes/test');
+var admin = require('./routes/admin/index');
 
 var app = express();
 
@@ -21,11 +22,17 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/test', test)
+app.use('/test', test);
+app.use('/admin', admin);
+
+//this line should below the 'public' static, since the public file would disrupt
+//the route.
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
