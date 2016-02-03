@@ -1,4 +1,3 @@
-var jwt = require("jsonwebtoken");
 var model = require("../model");
 var public = require("./public")
 
@@ -11,10 +10,16 @@ var userRegister = function(userData, callback){
     if (result) {
       userData.pwd = public.encode(userData.pwd);
       model.user.saveUser(userData, function(){
-        callback({
-          "status":200,
-          "msg":"ok"
+        model.user.searchUser(userData, function(result){
+          delete(result[0]["pwd"])
+          var user = result[0];
+          callback({
+            "status":200,
+            "msg":"ok",
+            "user":user
+          })
         })
+
       })
     }else{
       callback({
@@ -27,10 +32,11 @@ var userRegister = function(userData, callback){
 }
 
 var userAuth = function(req, res, next){
-  if (Math.random() < 0.5) {
-    next("route")
-  }else {
+  if (!req.cookies.token) {
     next();
+  }else {
+    req.user = public.deToken(req.cookies.token);
+    next("route");
   }
 }
 

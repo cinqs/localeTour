@@ -14,8 +14,7 @@ router.all("/*", system.user.userAuth, function(req, res, next){
   *@return [page] which is for you to insert new
 */
 router.get('/detail', function(req, res, next) {
-  console.log(next);
-  res.render("admin/index");
+  res.json(req.user);
 });
 
 

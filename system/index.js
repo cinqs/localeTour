@@ -1,5 +1,7 @@
 var user = require("./user");
+var public = require("./public");
 
 module.exports = {
-  "user": user
+  "user": user,
+  "public":public
 }
