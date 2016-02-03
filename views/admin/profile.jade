@@ -9,14 +9,17 @@ html(lang="en")
     script(src='/javascripts/jquery-2.2.0.min.js')
   body
     div.container
-      header
-        a(href='/admin/profile') try again
+      if user.status == 423
+        h4.red Your account is in a abnormal status
+      else
+        div.header
+          a(href = info.idUrl)
+            h3= user.id
+          a(href = info.logoutUrl)
+            h3 Logout
         div.row
-          if user.status == 423
-            h4.red Your account is in a abnormal status
-          else
-            table.table
-              each val, key in user
-                tr
-                  td= key
-                  td= val
+          table.table
+            each val, key in user
+              tr
+                td= key
+                td= val

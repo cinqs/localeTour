@@ -1,9 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var model = require("../model")
+var model = require("../model");
+var system = require("../system");
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+
+/*router.get("/*", system.user.userIden, function(req, res, next){
+
+})*/
+
+router.get('/', system.user.userIden, function(req, res, next) {
   var sort    = req.query.sort || "date";
   var order   = parseInt(req.query.order) || -1;
 

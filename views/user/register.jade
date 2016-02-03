@@ -21,10 +21,9 @@ html(lang="en")
                 input.form-control(name='pwd' type='password' placeholder='Password')
               div.form-group
                 input.btn.btn-default(type='submit')
+            if status
+              p.red= msg
           div.col-md-2
           div.col-md-4
             h2
               a(href="/user/login") Login
-        div.row
-          if(status)
-            p.red= msg

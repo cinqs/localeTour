@@ -21,9 +21,20 @@ var deToken = function(data){
   return jwt.verify(data, config.secret);
 }
 
+var siteInfo = function(req, res, next){
+  var info = {};
+  info.url = req.protocol + '://' + req.get('host') + req.originalUrl;
+  info.ip = req.headers['x-real-ip'] || req.ip;
+  info.logoutUrl = req.protocol + '://' + req.get('host') + '/user/logout/?rUrl=' + req.originalUrl;
+
+  req.info = info;
+  next();
+}
+
 module.exports = {
   "encode"      : encode,
   "pwdCompare"  : pwdCompare,
   "genToken"    : genToken,
   "deToken"     : deToken,
+  "siteInfo"    : siteInfo,
 }
