@@ -1,8 +1,37 @@
 body {
   padding: 50px;
   font: 14px "Josefin Sans", Helvetica, Arial, sans-serif;
+  background-color: #eee;
+}
+#header{
+  font-family: 'Gloria Hallelujah', cursive;
+}
+#subheader{
+  font-family: 'Gloria Hallelujah', cursive;
+  color: #bbb;
 }
 
 a {
   color: #00B7FF;
+}
+
+.bigger{
+  font-size: 30px;
+}
+
+.red{
+  color: red;
+}
+
+.gold{
+  color: gold;
+}
+.yellow{
+  color: yellow;
+}
+.blue{
+  color: blue;
+}
+.pink{
+  color: pink;
 }

@@ -4,14 +4,18 @@ var path = require('path');
 var chalk = require('chalk');
 
 var model = require("../../model");
+var system = require("../../system");
 
+router.all("/*", system.user.userAuth, function(req, res, next){
+  res.redirect("/user/login");
+})
 /**
   *@param [null]
   *@return [page] which is for you to insert new
 */
-router.get('/', function(req, res, next) {
-  console.log("The method entered");
-  res.sendFile(path.join(__dirname, '../../public/admin/index.html'));
+router.get('/detail', function(req, res, next) {
+  console.log(next);
+  res.render("admin/index");
 });
 
 

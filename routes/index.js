@@ -7,11 +7,13 @@ router.get('/', function(req, res, next) {
   var sort    = req.query.sort || "date";
   var order   = parseInt(req.query.order) || -1;
 
+  var response = {
+    title: "Locale Tour"
+  }
+
   if (order != 1 && order != -1) {
-    var response = {
-      "status": 422,
-      "msg"   : "order number should be 1 or -1"
-    }
+    response.status = 422;
+    response.msg = "order number should be 1 or -1"
     res.status(200).render("index", response);
   }else{
     var let = {
@@ -20,11 +22,9 @@ router.get('/', function(req, res, next) {
     };
 
     model.post.getPost(let, function(post){
-      var response = {
-        "status": 200,
-        "msg"   : "ok",
-        "post"  : post
-      }
+      response.status = 200;
+      response.msg    = "ok",
+      response.post   = post
       res.status(200).render("index", response);
     });
   }

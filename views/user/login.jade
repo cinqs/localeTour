@@ -1,0 +1,27 @@
+doctype html
+html(lang="en")
+  head
+    title Local Tour
+    meta(charset="utf-8")
+    link(href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css')
+    link(href='/stylesheets/bootstrap.min.css' rel='stylesheet' type='text/css')
+    link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
+    script(src='/javascripts/jquery-2.2.0.min.js')
+  body
+    div.container
+      header
+        a(href='/admin/detail') try again
+        div.row
+          div.col-md-6
+            h1 Login
+            form.form-horizontal(action='/user/login' method='post')
+              div.form-group
+                input.form-control(name='id' type='text' placeholder='ID/nickname/email')
+              div.form-group
+                input.form-control(name='pwd' type='password' placeholder='Password')
+              div.form-group
+                input.btn.btn-default(type='submit')
+          div.col-md-2
+          div.col-md-4
+            h2
+              a(href="/user/register") Register

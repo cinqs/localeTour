@@ -2,7 +2,13 @@ extends layout
 
 block content
   div.container
-    h1 Locale Tour
+    h1#header Locale Tour
+    h3#subheader Everyone has the chance&nbsp;&nbsp;&nbsp;
+      span.gold.bigger to be
+      span ,
+      span.blue.bigger to know
+      span ,
+      span.pink.bigger to discover!
     if status != 200
       p= msg
     else
