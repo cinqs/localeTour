@@ -1,0 +1,22 @@
+doctype html
+html(lang="en")
+  head
+    title Local Tour
+    meta(charset="utf-8")
+    link(href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css')
+    link(href='/stylesheets/bootstrap.min.css' rel='stylesheet' type='text/css')
+    link(href='/stylesheets/style.css' rel='stylesheet' type='text/css')
+    script(src='/javascripts/jquery-2.2.0.min.js')
+  body
+    div.container
+      header
+        a(href='/admin/profile') try again
+        div.row
+          if user.status == 423
+            h4.red Your account is in a abnormal status
+          else
+            table.table
+              each val, key in user
+                tr
+                  td= key
+                  td= val

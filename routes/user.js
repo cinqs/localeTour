@@ -19,8 +19,6 @@ router.get("/register", function(req, res, next){
 router.post("/login", function(req, res, next){
   var id = req.body.id || null;
   var pwd = req.body.pwd || null;
-
-
 })
 
 router.post("/register", function(req, res, next){
@@ -40,8 +38,8 @@ router.post("/register", function(req, res, next){
     system.user.userRegister(userData, function(result){
       if (result.status == 200) {
         //res.json(result);
-        res.cookie("token", system.public.genToken(result.user), {"expires": new Date(Date.now() + 24 * 60 * 60 * 100)});
-        res.redirect("/admin/detail");
+        res.cookie("token", system.public.genToken(result.user), {"expires": new Date(Date.now() + 24 * 60 * 60 * 1000)});
+        res.redirect("/admin/profile");
       }else if (result.status == 409) {
         res.render("user/register", result);
       }

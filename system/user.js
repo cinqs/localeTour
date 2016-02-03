@@ -12,11 +12,10 @@ var userRegister = function(userData, callback){
       model.user.saveUser(userData, function(){
         model.user.searchUser(userData, function(result){
           delete(result[0]["pwd"])
-          var user = result[0];
           callback({
             "status":200,
             "msg":"ok",
-            "user":user
+            "user":result[0]
           })
         })
 
@@ -35,8 +34,19 @@ var userAuth = function(req, res, next){
   if (!req.cookies.token) {
     next();
   }else {
-    req.user = public.deToken(req.cookies.token);
-    next("route");
+    var user = public.deToken(req.cookies.token);
+    req.user = user;
+    model.user.checkUser(user._id, function(result){
+      if (result.length == 1 && result[0].status) {
+        req.user = result[0];
+        next("route");
+      }else if (!result.length) {
+        next()
+      }else {
+        req.user.status = 423;
+        next("route");
+      }
+    })
   }
 }
 

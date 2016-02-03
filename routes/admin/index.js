@@ -9,12 +9,11 @@ var system = require("../../system");
 router.all("/*", system.user.userAuth, function(req, res, next){
   res.redirect("/user/login");
 })
-/**
-  *@param [null]
-  *@return [page] which is for you to insert new
-*/
-router.get('/detail', function(req, res, next) {
-  res.json(req.user);
+
+router.get('/profile', function(req, res, next) {
+  res.render("admin/profile", {
+    "user": req.user
+  });
 });
 
 
