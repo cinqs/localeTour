@@ -53,6 +53,7 @@ var userIden = function(req, res, next){
       "status": 401,
       "id": "Login or Registe"
     };
+    next();
   }else {
     var user = public.deToken(req.cookies.token);
     req.user = user;
@@ -64,15 +65,16 @@ var userIden = function(req, res, next){
           "expires": new Date(Date.now() + 24 * 60 * 60 * 1000)
         });
         req.user = result[0];
+        next();
       }else {
         req.user = {
           "status": 401,
           "id":"Login or Registe"
         };
+        next();
       }
     })
   }
-  next();
 }
 
 var userAuth = function(req, res, next){

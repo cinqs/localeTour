@@ -44,7 +44,7 @@ router.post("/login", function(req, res, next){
         res.cookie("token", system.public.genToken(result.user), {
           "expires": new Date(Date.now() + 24 * 60 * 60 * 1000)
         });
-        res.redirect("/admin/profile")
+        res.redirect("/admin/")
       }else{
         res.render("user/login", {
           "status": 423,

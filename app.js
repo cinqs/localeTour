@@ -5,11 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var packagejson = require("./package.json");
+
 var routes = require('./routes/index');
 var user = require('./routes/user');
 var test = require('./routes/test');
 var admin = require('./routes/admin/index');
 var post  = require("./routes/post");
+var adminPost = require("./routes/admin/post");
 
 var app = express();
 
@@ -28,6 +31,7 @@ app.use('/', routes);
 app.use('/user', user);
 app.use('/test', test);
 app.use('/admin', admin);
+app.use('/admin/post', adminPost);
 app.use("/post", post);
 
 //this line should below the 'public' static, since the public file would disrupt
@@ -44,6 +48,8 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
+
+app.set("env", packagejson.env);
 
 // development error handler
 // will print stacktrace

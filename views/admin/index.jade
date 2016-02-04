@@ -6,27 +6,39 @@ html(lang='en')
     meta(content='the content insert place')
     link(href='https://fonts.googleapis.com/css?family=Josefin+Sans', rel='stylesheet', type='text/css')
     link(href='/stylesheets/bootstrap.min.css', rel='stylesheet')
-    link(href='stylesheets/style.css', rel='stylesheet', type='text/css')
+    link(href='/admin/stylesheets/style.css', rel='stylesheet', type='text/css')
     script(src='/javascripts/jquery-2.2.0.min.js')
   body
     .container
       header
-        h1 Plz fill the form below
-      form.form-horizontal(action='/admin/', method='post')
-        .form-group
-          label.col-sm-3.control-label Nick Name
-          .col-sm-9
-            input.form-control(name='nickname', type='text', placeholder='input the name you want to show in public')
-        .form-group
-          label.col-sm-3.control-label City
-          .col-sm-9
-            input.form-control(name='city', type='text', placeholder='input the city you are living in')
-        .form-group
-          label.col-sm-3.control-label Contact
-          .col-sm-9
-            input.form-control(name='contact', type='text', placeholder='input the contact method how you want to be contacted')
-        .form-group
-          label.control-label.col-sm-3
-          .col-sm-9
-            input.btn.btn-default(type='submit')
-  script(src='/javascripts/main.js')
+        h1 Admin
+        br
+        br
+        br
+      div.row
+        div.col-md-6
+          h2 Submit a new FUN
+          form.form-horizontal(action='/admin/post/save', method='post')
+            .form-group
+              label.col-sm-3.control-label *Nick Name
+              .col-sm-9
+                input.form-control(name='nickname', type='text', placeholder='input the name you want to show in public')
+            .form-group
+              label.col-sm-3.control-label *City
+              .col-sm-9
+                input.form-control(name='city', type='text', placeholder='input the city you are living in')
+            .form-group
+              label.col-sm-3.control-label *Contact
+              .col-sm-9
+                input.form-control(name='contact', type='text', placeholder='input the contact method how you want to be contacted')
+            .form-group
+              label.control-label.col-sm-3
+              .col-sm-9
+                button.btn.btn-default#savePost(type='button') Submit
+          p#warningPostForm.red
+          if(status && status != 200)
+            p.red= msg
+        div.col-md-2
+        div.col-md-4
+
+  script(src='/admin/javascripts/main.js')
