@@ -33,7 +33,6 @@ var savePost = function(post, callback){
 var getPost = function(filter, callback){
   var sortby = filter.sortby || "postDate";
   var order = filter.order || -1;
-  console.log(JSON.stringify(filter));
   var orderby = JSON.parse('{"'+sortby+'":'+order+'}');
   MongoClient.connect(dburl, function(err, db){
     assert.equal(err, null);
