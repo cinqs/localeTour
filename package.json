@@ -1,6 +1,6 @@
 {
-  "name": "express",
-  "version": "0.0.0",
+  "name": "LocaleTour",
+  "version": "0.0.5",
   "private": true,
   "env":"development",
   "scripts": {
