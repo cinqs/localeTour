@@ -7,4 +7,15 @@ html
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    div.row
+      if(user.status == 401)
+        h4
+          a(href="/user/login")= user.id
+      else
+        h4
+          a(href='/user/' + user._id)= user.id
+        h4
+          a(href=info.logoutUrl) Logout
+
+
     block content

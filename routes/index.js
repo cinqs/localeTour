@@ -13,7 +13,9 @@ router.get('/', system.user.userIden, function(req, res, next) {
       "status": 200,
       "title": "Locale Tour",
       "msg": "ok",
-      "post": result
+      "post": result,
+      "user": req.user,
+      "info": req.info
     })
   })
 });
