@@ -1,5 +1,6 @@
 # localeTour
 ## Everyone has the chance   to be,to know,to discover!
+```
 {
   "name": "LocaleTour",
   "version": "0.0.5",
@@ -22,3 +23,4 @@
     "serve-favicon": "~2.3.0"
   }
 }
+```
