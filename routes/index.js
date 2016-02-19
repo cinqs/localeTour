@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var system = require("../system");
+var packagejson = require("../package.json");
 
 router.get('/', system.user.userIden, function(req, res, next) {
   var filter = {
@@ -28,6 +29,15 @@ router.get('/', system.user.userIden, function(req, res, next) {
     })
   })
 });
+
+router.get("/version", function(req, res, next){
+  var version = packagejson.version;
+  res.status(200).json({
+    "status": 200,
+    "msg": "ok",
+    "version": version,
+  })
+})
 
 
 module.exports = router;

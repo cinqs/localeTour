@@ -1,3 +1,4 @@
 --------version 0.0.6-------------
 1. make the date of the post easy to understand
 2. add the init module for test purpose
+3. added the /version get to get version
