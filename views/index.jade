@@ -17,4 +17,8 @@ block content
           h4= val.nickname
           h5= val.city
           h5= val.contact
+          h5= val.postDate
+          p.big= val.date.day
+          p= val.date.month
+          p.small= val.date.year 
           a(href='/post/' + val._id) More

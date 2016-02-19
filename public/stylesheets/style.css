@@ -35,3 +35,10 @@ a {
 .pink{
   color: pink;
 }
+
+.big{
+  font-size: 18px;
+}
+.small{
+  font-size: 10px;
+}
