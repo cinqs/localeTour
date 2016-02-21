@@ -16,14 +16,29 @@ html(lang="en")
             h1 Register
             form.form-horizontal(action='/user/register' method='post')
               div.form-group
-                input.form-control(name='id' type='text' placeholder='ID/nickname/email')
+                label.col-sm-3.control-label *Nickname
+                .col-sm-9
+                  input.form-control(name='id' type='text' placeholder='ID/nickname/email')
               div.form-group
-                input.form-control(name='pwd' type='password' placeholder='Password')
+                label.col-sm-3.control-label *Password
+                .col-sm-9
+                  input.form-control(name='pwd' type='password' placeholder='Password')
               div.form-group
-                input.btn.btn-default(type='submit')
+                label.col-sm-3.control-label *Confirm Password
+                .col-sm-9
+                  input.form-control(name='confirmpwd' type='password' placeholder='Confirm Password')
+              div.form-group
+                .col-sm-3
+                .col-sm-9
+                  #confirmpwdwrong.red
+              div.form-group
+                .col-sm-3
+                .col-sm-9
+                  button.btn.btn-default Submit
             if status
               p.red= msg
           div.col-md-2
           div.col-md-4
             h2
               a(href="/user/login") Login
+  script(src='/javascripts/register.js')

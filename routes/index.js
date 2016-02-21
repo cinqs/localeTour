@@ -3,6 +3,11 @@ var router = express.Router();
 var system = require("../system");
 var packagejson = require("../package.json");
 
+/**
+  *first page
+  *@param [null || amount&order&sortby in the future version]
+  *@return [html] {render a page from jade with the content of the post}
+*/
 router.get('/', system.user.userIden, function(req, res, next) {
   var filter = {
     "amount": 8,
@@ -30,6 +35,11 @@ router.get('/', system.user.userIden, function(req, res, next) {
   })
 });
 
+/**
+  *this is to get the current version
+  *@param [null]
+  *@return [json]{json with the version property}
+*/
 router.get("/version", function(req, res, next){
   var version = packagejson.version;
   res.status(200).json({

@@ -4,15 +4,34 @@ var chalk = require("chalk");
 
 var system = require("../system");
 
+/**
+  *this is to get the login page rendered
+  *once you are redirected or directed here, you login cookies will be cleared
+  *This means even if you are logged in, you should not get here
+  *@param [null]
+  *@return [html] {rendered page for login}
+*/
 router.get("/login", function(req, res, next){
   res.clearCookie("token");
   res.render("user/login");
 })
 
+/**
+  *this is to render the register page
+  *@param [null]
+  *@return [html] {rendered page of the register}
+*/
+
 router.get("/register", function(req, res, next){
-  res.render("user/register");
+  res.status(200).render("user/register");
 })
 
+/**
+  *this is the provide a link for logout
+  *logout will clear the cookies and redirect you to the page where you are from
+  *you may be redirected again after you are directed to the page you are from
+  *it depends on if the page you are from is auth required or not
+*/
 router.get("/logout", function(req, res, next){
   var rUrl = req.query.rUrl;
 
@@ -20,6 +39,15 @@ router.get("/logout", function(req, res, next){
   res.redirect(rUrl);
 })
 
+/**
+  *this the receiver of the post of login
+  *@param [string] {id:the nickname or ID}
+  *@param [string] {pwd: the password which is related to the ID}
+  *@return [html] {missing content if the post content contains not enough information required}
+  *@return [html] {user not found, with a status of 404}
+  *@return [redirect] {redirect to /admin/ if user login successfully, at the mean time, set the user login cookie}
+  *@return [html] {status of 423, which means account status if abnormal}
+*/
 router.post("/login", function(req, res, next){
   var id = req.body.id || null;
   var pwd = req.body.pwd || null;
@@ -55,6 +83,13 @@ router.post("/login", function(req, res, next){
   }
 })
 
+/**
+  *@param [string] {id:the id should be used as unique id for user}
+  *@param [string] {pwd:password for the id}
+  *@return [html] {parameters provided not suffient}
+  *@return [html] {ok, and the same time return the user login cookies}
+  *@return [html] {status 409, which means the user is already existing}
+*/
 router.post("/register", function(req, res, next){
   var id = req.body.id || null;
   var pwd = req.body.pwd || null;
