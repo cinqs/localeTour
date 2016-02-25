@@ -27,6 +27,12 @@ var siteInfo = function(req, res, next){
   info.ip = req.headers['x-real-ip'] || req.ip;
   info.logoutUrl = req.protocol + '://' + req.get('host') + '/user/logout/?rUrl=' + req.originalUrl;
 
+  if (req.user) {
+    info.idUrl = req.protocol + '://' + req.headers['host'] + "/user/" + req.user._id;
+  }else{
+    info.idUrl = "";
+  }
+
   req.info = info;
   next();
 }
