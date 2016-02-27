@@ -1,34 +1,24 @@
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcrypt-nodejs");
+'use strict'
+/**
+  *@author Abner
+  *@description {1: for user identification identify purpose}
+  *             {2: for password encryption and decryption}
+  *             {3: for web token encode and decode}
+*/
 
-var config = require("../config");
+var tool = require("./tool");
+var model = require("../model");
 
+
+
+/**
+  *trying to write a pre requested funciton which is pre processed
+*/
 
 var checkAuth = function(data){
 
 }
-/**
-  *to generate the token using jsonwebtoken
-  *@param [json] {data:contents that you want to be crypted}
-  *@param [String] {secret: the string you want to use to crypt}
-  *@return [String] {token: the generated token}
-*/
 
-var genToken = function(data){
-  return jwt.sign(data, config.secret)
-}
-
-/**
-  *this is to de-token the token
-  *using the 'jsonwebtoken' module which is required above.
-  *@param [String] {token: the token you want to de-token}
-  *@param [String] {secret: this is not in the parameters, but it is required int the function}
-  *@return [json] {user: this user is inside the token}
-*/
-
-var deToken = function(token){
-  return jwt.verify(token, config.secret);
-}
 
 /**
   *This is for restrict user authentication
@@ -50,10 +40,66 @@ var userAuthRestrict = function(req, res, next){
     next();
   }else {
     // this is to de-token the token in the cookies
-
+    var user = tool.deToken(req.cookies.token);
+    var userId = user._id || null;
+    model.user.checkUser(userId, function(users){
+      if (users.length === 1 && users[0].status) {
+        //delete the pwd in the user result
+        delete(users[0].pwd);
+        var token = tool.genToken(users[0]);
+        //reset the password
+        res.cookie("token", token, {
+          "expires": new Date(Date.now() + 24 * 60 * 60 * 1000),
+        });
+        //add the user in the req session
+        req.user = users[0];
+        next("route");
+      }else {
+        next();
+      }
+    })
   }
 }
 
-var userAuthOptional = function(){
+/**
+  *For some pages, the user authentication is not a must,
+  *which mean, you can or not to login, like the first home page.
+  *if you login, you will get customerised page,
+  *if not, it's ok
 
+  *this middleware is used individually for every router.
+  *like router.get("/home", system.auth.userAuthOptional, function(req, res){});
+*/
+
+var userAuthOptional = function(req, res, next){
+  if (!req.cookies || !req.cookies.token) {
+    //cookies not contain exist or token not exsit in coookie
+    req.user = {
+      "status": 401,
+      "id": "Login",
+    };
+    next();
+  }else {
+    //cookie exists and below is to check the existing and it's status
+    var user = tool.deToken(req.cookies.token);
+    var userId = user._id || null;
+    model.user.checkUser(userId, function(users){
+      if (users.length === 1 && users[0].status) {
+        //users unique and status is true
+        delete(users[0].pwd);
+        var token = tool.genToken(users[0]);
+        res.cookie("token", token, {
+          "expires": new Date(Date.now() + 24 * 60 * 60 * 1000),
+        });
+        req.user = users[0];
+        next();
+      }else {
+        //user not unique or duplex or status false
+        req.user = {
+          "status": 401,
+          "id": "Login"
+        }
+      }
+    })
+  }
 }
